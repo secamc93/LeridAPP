@@ -1,0 +1,38 @@
+CREATE TABLE Usuarios (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    contraseña VARCHAR(100),
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Categorías (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(50)
+);
+
+CREATE TABLE Negocios (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100),
+    direccion VARCHAR(200),
+    teléfono VARCHAR(20),
+    horario VARCHAR(100),
+    descripcion TEXT,
+    url_imagen VARCHAR(200),
+    id_usuario INTEGER REFERENCES Usuarios(id)
+);
+
+CREATE TABLE Negocios_Categorías (
+    id_negocio INTEGER REFERENCES Negocios(id),
+    id_categoria INTEGER REFERENCES Categorías(id),
+    PRIMARY KEY (id_negocio, id_categoria)
+);
+
+CREATE TABLE Comentarios (
+    id SERIAL PRIMARY KEY,
+    comentario TEXT,
+    valoracion INTEGER,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_usuario INTEGER REFERENCES Usuarios(id),
+    id_negocio INTEGER REFERENCES Negocios(id)
+);
