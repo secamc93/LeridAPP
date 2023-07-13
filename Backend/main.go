@@ -1,14 +1,15 @@
 package main
 
 import (
-	"fmt"
 	"LeridAPP/db"
 	"LeridAPP/models"
 	"LeridAPP/router"
+	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -29,13 +30,19 @@ func main() {
 
 	fmt.Println("Serving on port 8000")
 
-	// Ejecutar AutoMigrate para crear las tablas en la base de datos
 	err = db.DBConn.AutoMigrate(&models.Usuario{}, &models.Categoria{}, &models.Negocio{}, &models.NegocioCategoria{}, &models.Comentario{})
 	if err != nil {
 		log.Fatalf("Failed to migrate tables: %v", err)
 	}
 
-	err = http.ListenAndServe(":8000", r)
+	// Create a cors wrapper (middleware)
+	corsWrapper := cors.New(cors.Options{
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders: []string{"*"},
+		AllowedOrigins: []string{"*"},
+	})
+
+	err = http.ListenAndServe(":8000", corsWrapper.Handler(r))
 	if err != nil {
 		log.Fatalf("Server exited with error: %v", err)
 	}
