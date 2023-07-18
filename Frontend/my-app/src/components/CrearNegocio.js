@@ -1,85 +1,163 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function CrearNegocio() {
+const CrearNegocio = ({ setNegocios }) => {
+
+
   const [nombre, setNombre] = useState('');
-  const [email, setEmail] = useState('');
-  const [contrasena, setContrasena] = useState('');
+  const [direccion, setDireccion] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [horario, setHorario] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+  const [urlImagen, setUrlImagen] = useState('');
+  const [negociosCategorias, setNegociosCategorias] = useState([]);
+  const [todasLasCategorias, setTodasLasCategorias] = useState([]);
+
+  useEffect(() => {
+    const fetchCategorias = async () => {
+      try {
+        const res = await axios.get('http://localhost:8000/api/categorias');
+        setTodasLasCategorias(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchCategorias();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Generar fecha/hora actual
-    const fechaRegistro = new Date().toISOString();
-
-    const data = {
-      Nombre: nombre,
-      Email: email,
-      Contrasena: contrasena,
-      FechaRegistro: fechaRegistro,
-    };
-
-    console.log(data); // imprimir en consola los datos del formulario
-
     try {
-      await axios.post('http://localhost:8000/api/usuarios', data);
-      // Aquí puedes agregar lógica adicional luego de enviar el POST
+      const nuevoNegocio = {
+        Nombre: nombre,
+        Direccion: direccion,
+        Telefono: telefono,
+        Horario: horario,
+        Descripcion: descripcion,
+        UrlImagen: urlImagen,
+        NegociosCategorias: negociosCategorias.map(catNombre => {
+          const categoria = todasLasCategorias.find(cat => cat.nombre === catNombre);
+          return categoria ? categoria.id : null;
+        }),
+        UsuarioID: 1,
+        Comentarios: []
+      };
+
+      const response = await axios.post('http://localhost:8000/api/negocios', nuevoNegocio);
+
+    // Actualiza la lista de negocios en el estado.
+      setNegocios(prevNegocios => [...prevNegocios, response.data]);
+
+      setNombre('');
+      setDireccion('');
+      setTelefono('');
+      setHorario('');
+      setDescripcion('');
+      setUrlImagen('');
+      setNegociosCategorias([]);
     } catch (error) {
       console.log(error);
     }
-
-    // Restablecer los valores del formulario
-    setNombre('');
-    setEmail('');
-    setContrasena('');
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-5">
-      <h1 className="text-red-500 text-white text-center mb-4">Crear Usuario</h1>
+    <div className="container mx-auto p-10 shadow rounded-lg">
+      <h1 className="text-2xl font-bold mb-4 text-center">Crear Negocio</h1>
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="nombre" className="block text-red-500 text-white">
-            Nombre
-          </label>
+        <div className="flex flex-col mb-4">
+          <div className="flex justify-center">
+            <label htmlFor="nombre" className="mb-2">
+              Nombre
+            </label>
+          </div>
           <input
             type="text"
             id="nombre"
+            className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-red-500"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-            className="border border-red-500 rounded px-2 py-1"
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-red-500 text-white">
-            Email
-          </label>
+        <div className="flex flex-col mb-4">
+          <div className="flex justify-center">
+            <label htmlFor="direccion" className="mb-2">
+              Dirección
+            </label>
+          </div>
           <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="border border-red-500 rounded px-2 py-1"
+            type="text"
+            id="direccion"
+            className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-red-500"
+            value={direccion}
+            onChange={(e) => setDireccion(e.target.value)}
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="contrasena" className="block text-red-500 text-white">
-            Contraseña
-          </label>
+        <div className="flex flex-col mb-4">
+          <div className="flex justify-center">
+            <label htmlFor="telefono" className="mb-2">
+              Teléfono
+            </label>
+          </div>
           <input
-            type="password"
-            id="contrasena"
-            value={contrasena}
-            onChange={(e) => setContrasena(e.target.value)}
-            className="border border-red-500 rounded px-2 py-1"
+            type="text"
+            id="telefono"
+            className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-red-500"
+            value={telefono}
+            onChange={(e) => setTelefono(e.target.value)}
           />
         </div>
-        <button type="submit" className="bg-red-500 text-white px-4 py-2 rounded">
-          Enviar
-        </button>
+        <div className="flex flex-col mb-4">
+          <div className="flex justify-center">
+            <label htmlFor="horario" className="mb-2">
+              Horario
+            </label>
+          </div>
+          <input
+            type="text"
+            id="horario"
+            className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-red-500"
+            value={horario}
+            onChange={(e) => setHorario(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col mb-4">
+          <div className="flex justify-center">
+            <label htmlFor="descripcion" className="mb-2">
+              Descripción
+            </label>
+          </div>
+          <textarea
+            id="descripcion"
+            className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-red-500"
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col mb-4">
+          <div className="flex justify-center">
+            <label htmlFor="urlImagen" className="mb-2">
+              URL de Imagen
+            </label>
+          </div>
+          <input
+            type="text"
+            id="urlImagen"
+            className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-red-500"
+            value={urlImagen}
+            onChange={(e) => setUrlImagen(e.target.value)}
+          />
+        </div>
+ 
+        <div className="flex justify-center">
+          <button type="submit" className="px-4 py-2 rounded-lg bg-blue-500 text-white">
+            Crear
+          </button>
+        </div>
       </form>
     </div>
   );
-}
+};
 
 export default CrearNegocio;

@@ -30,7 +30,7 @@ func main() {
 
 	fmt.Println("Serving on port 8000")
 
-	err = db.DBConn.AutoMigrate(&models.Usuario{}, &models.Categoria{}, &models.Negocio{}, &models.NegocioCategoria{}, &models.Comentario{})
+	err = db.DBConn.AutoMigrate(&models.Usuario{}, &models.Categoria{}, &models.Negocio{}, &models.Comentario{})
 	if err != nil {
 		log.Fatalf("Failed to migrate tables: %v", err)
 	}

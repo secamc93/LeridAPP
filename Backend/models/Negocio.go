@@ -6,19 +6,19 @@ import (
 
 type Negocio struct {
 	gorm.Model
-	Nombre          string
-	Direccion       string
-	Telefono        string
-	Horario         string
-	Descripcion     string
-	UrlImagen       string
-	UsuarioID       uint
-	NegociosCategorias []NegocioCategoria
-	Comentarios     []Comentario
+	Nombre      string
+	Direccion   string
+	Telefono    string
+	Horario     string
+	Descripcion string
+	UrlImagen   string
+	UsuarioID   uint
+	Categorias  []uint `gorm:"type:integer[]"`
+	Comentarios []uint `gorm:"type:integer[]"`
 }
 
 func GetAllNegocios(db *gorm.DB, negocios *[]Negocio) (err error) {
-	if err = db.Preload("NegociosCategorias").Preload("Comentarios").Find(negocios).Error; err != nil {
+	if err = db.Find(negocios).Error; err != nil {
 		return err
 	}
 	return nil

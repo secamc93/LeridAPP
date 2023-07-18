@@ -2,17 +2,15 @@ package models
 
 import (
 	"gorm.io/gorm"
-	
 )
 
 type Categoria struct {
 	gorm.Model
-	Nombre            string
-	NegociosCategorias []NegocioCategoria
+	Nombre string
 }
 
 func GetAllCategorias(db *gorm.DB, categorias *[]Categoria) (err error) {
-	if err = db.Preload("NegociosCategorias").Find(categorias).Error; err != nil {
+	if err = db.Find(categorias).Error; err != nil {
 		return err
 	}
 	return nil

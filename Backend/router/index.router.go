@@ -1,8 +1,9 @@
 package router
 
 import (
+	"LeridAPP/controller"
+
 	"github.com/gorilla/mux"
-	"LeridAPP/controller" 
 )
 
 func Router() *mux.Router {

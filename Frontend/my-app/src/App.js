@@ -1,7 +1,9 @@
-import React from 'react';
-import CrearNegocio from './components/CrearNegocio';
-import ConsultarNegocio from './components/ConsultarNegocio';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React from 'react';
+
+import Usuarios from './components/Usuarios';
+import Negocios from './components/Negocios';
+import Categoria from './components/Categoria';
 
 function App() {
   return (
@@ -14,17 +16,21 @@ function App() {
           <nav className="w-64 bg-gradient-to-b from-red-800 to-red-600 rounded-lg shadow-lg p-6 text-white m-4">
             <ul>
               <li className="mb-2">
-                <Link to="/crear-negocio">Crear Negocio</Link>
+                <Link to="/usuarios">Usuarios</Link>
               </li>
               <li>
-                <Link to="/consultar-negocio">Consultar Negocio</Link>
+                <Link to="/negocios">Negocios</Link>
+              </li>
+              <li>
+                <Link to="/categoria">Categorías</Link>
               </li>
             </ul>
           </nav>
           <div className="flex-grow">
             <Routes>
-              <Route path="/crear-negocio" element={<CrearNegocio />} />
-              <Route path="/consultar-negocio" element={<ConsultarNegocio />} />
+              <Route path="/usuarios" element={<Usuarios />} />
+              <Route path="/negocios" element={<Negocios />} />
+              <Route path="/categoria" element={<Categoria />} />
             </Routes>
           </div>
         </div>
