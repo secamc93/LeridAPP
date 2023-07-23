@@ -44,6 +44,7 @@ func ActualizarNegocio(db *gorm.DB, negocio *Negocio) (err error) {
 }
 
 func EliminarNegocio(db *gorm.DB, id string) (err error) {
-	db.Where("id = ?", id).Delete(Negocio{})
+	negocio := &Negocio{} // Debes pasar un puntero a la estructura Negocio.
+	db.Where("id = ?", id).Delete(negocio)
 	return nil
 }

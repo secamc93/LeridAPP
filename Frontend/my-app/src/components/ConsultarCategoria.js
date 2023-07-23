@@ -1,26 +1,50 @@
 import React from 'react';
+import axios from 'axios';
 
-const ConsultarCategoria = ({ categorias }) => {
+const ConsultarCategoria = ({ categorias, fetchCategorias, setCategorias }) => {
+  const eliminarCategoria = async (id) => {
+
+    try {
+      await axios.delete(`http://localhost:8000/api/categorias/${id}`)
+      .then(() => {
+        setCategorias(categorias.filter((categoria) => categoria.ID !== id))
+        fetchCategorias();
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  
+  
+
+
 
   return (
-    <div className= "shadow-lg rounded bg-white p-5" style={{border: '1px solid red'}}>
-      <h1 className="text-2xl font-bold mb-4">Categorías</h1>
-      <table className="min-w-full bg-white border border-gray-300">
-        <thead>
-          <tr>
-            <th className="py-2 px-4 border-b">ID</th>
-            <th className="py-2 px-4 border-b">Nombre</th>
-          </tr>
-        </thead>
-        <tbody>
-          {categorias.map((categoria) => (
-            <tr key={categoria.ID}>
-              <td className="py-2 px-4 border-b">{categoria.ID}</td>
-              <td className="py-2 px-4 border-b">{categoria.Nombre}</td>
+    <div className="p-5">
+      
+      <div className="max-h-64 overflow-auto rounded-lg">
+        <table className="min-w-full bg-white border border-gray-300 rounded-lg">
+          <thead>
+            <tr>
+              
+             
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {categorias.map((categoria) => (
+              <tr key={categoria.ID}>
+                <td className="py-2 px-4 border-b">{categoria.Nombre}</td>
+                <td className="py-2 px-4 border-b">
+                  <button onClick={() => eliminarCategoria(categoria.ID)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                    X
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

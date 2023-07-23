@@ -63,101 +63,78 @@ const CrearNegocio = ({ setNegocios }) => {
   };
 
   return (
-    <div className="container mx-auto p-10 shadow rounded-lg">
+    <div className="bg-red-500 rounded-lg shadow-lg p-6  w-64 h-300 overflow-auto">
       <h1 className="text-2xl font-bold mb-4 text-center">Crear Negocio</h1>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col mb-4">
-          <div className="flex justify-center">
-            <label htmlFor="nombre" className="mb-2">
-              Nombre
-            </label>
-          </div>
           <input
             type="text"
             id="nombre"
+            placeholder="Nombre"
             className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-red-500"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
           />
         </div>
         <div className="flex flex-col mb-4">
-          <div className="flex justify-center">
-            <label htmlFor="direccion" className="mb-2">
-              Dirección
-            </label>
-          </div>
           <input
             type="text"
             id="direccion"
+            placeholder="Dirección"
             className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-red-500"
             value={direccion}
             onChange={(e) => setDireccion(e.target.value)}
           />
         </div>
         <div className="flex flex-col mb-4">
-          <div className="flex justify-center">
-            <label htmlFor="telefono" className="mb-2">
-              Teléfono
-            </label>
-          </div>
           <input
             type="text"
             id="telefono"
+            placeholder="Teléfono"
             className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-red-500"
             value={telefono}
             onChange={(e) => setTelefono(e.target.value)}
           />
         </div>
         <div className="flex flex-col mb-4">
-          <div className="flex justify-center">
-            <label htmlFor="horario" className="mb-2">
-              Horario
-            </label>
-          </div>
           <input
             type="text"
             id="horario"
+            placeholder="Horario"
             className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-red-500"
             value={horario}
             onChange={(e) => setHorario(e.target.value)}
           />
         </div>
         <div className="flex flex-col mb-4">
-          <div className="flex justify-center">
-            <label htmlFor="descripcion" className="mb-2">
-              Descripción
-            </label>
-          </div>
           <textarea
             id="descripcion"
+            placeholder="Descripción"
             className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-red-500"
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
           />
         </div>
         <div className="flex flex-col mb-4">
-          <div className="flex justify-center">
-            <label htmlFor="urlImagen" className="mb-2">
-              URL de Imagen
-            </label>
-          </div>
           <input
             type="text"
             id="urlImagen"
+            placeholder="URL de Imagen"
             className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-red-500"
             value={urlImagen}
             onChange={(e) => setUrlImagen(e.target.value)}
           />
         </div>
- 
+
         <div className="flex justify-center">
-          <button type="submit" className="px-4 py-2 rounded-lg bg-blue-500 text-white">
+          <button type="submit" className="px-4 py-2 rounded-lg bg-white text-red-500">
             Crear
           </button>
         </div>
       </form>
     </div>
   );
+
 };
 
 export default CrearNegocio;

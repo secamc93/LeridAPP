@@ -24,11 +24,10 @@ const Categoria = () => {
   };
 
   return (
-    <div>
-      <h2>Crear Categoría</h2>
+    <div className="bg-red-500 rounded-lg shadow-lg p-1  w-64 h-300">
       <CrearCategoria onNuevaCategoria={handleNuevaCategoria} />
-      <h2>Consultar Categoría</h2>
-      <ConsultarCategoria categorias={categorias} />
+      
+      <ConsultarCategoria categorias={categorias} setCategorias={setCategorias} />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ConsultarNegocios from './ConsultarNegocio';
 import CrearNegocio from './CrearNegocio';
+import Categoria from './Categoria';
 
 const Negocios = () => {
     const [negocios, setNegocios] = useState([]);
@@ -21,18 +22,22 @@ const Negocios = () => {
 
     return (
         <div className="flex flex-col items-center">
-            <div className="flex flex-row">
-            </div>
             <div className="flex flex-row mt-8">
                 <div className="mx-4">
                     <CrearNegocio setNegocios={setNegocios} />
                 </div>
                 <div className="mx-4">
-                    <ConsultarNegocios negocios={negocios} />
+                    <Categoria />
+                </div>
+            </div>
+            <div className="flex flex-row mt-8">
+                <div className="mx-4">
+                    <ConsultarNegocios negocios={negocios}  setNegocios={setNegocios}/>
                 </div>
             </div>
         </div>
     );
+    
 };
 
 export default Negocios;

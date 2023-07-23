@@ -1,6 +1,8 @@
 package models
 
 import (
+	"fmt"
+
 	"gorm.io/gorm"
 )
 
@@ -35,7 +37,10 @@ func ActualizarCategoria(db *gorm.DB, categoria *Categoria) (err error) {
 	return nil
 }
 
-func EliminarCategoria(db *gorm.DB, id string) (err error) {
-	db.Where("id = ?", id).Delete(Categoria{})
+func EliminarCategoria(db *gorm.DB, id string) error {
+	if err := db.Where("id = ?", id).Delete(&Categoria{}).Error; err != nil {
+		fmt.Println(err)
+		return err
+	}
 	return nil
 }
