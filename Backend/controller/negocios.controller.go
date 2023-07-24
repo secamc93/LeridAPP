@@ -1,13 +1,13 @@
 package controller
 
 import (
+	"LeridAPP/db"
+	"LeridAPP/models" // Asegúrate de cambiar "LeridAPP" por el nombre de tu paquete
 	"encoding/json"
 	"net/http"
-	"LeridAPP/models" // Asegúrate de cambiar "LeridAPP" por el nombre de tu paquete
-	"github.com/gorilla/mux"
-	"LeridAPP/db"
-)
 
+	"github.com/gorilla/mux"
+)
 
 // Controladores para Negocios
 func GetNegocios(w http.ResponseWriter, r *http.Request) {

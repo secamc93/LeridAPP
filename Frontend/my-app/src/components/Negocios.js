@@ -21,13 +21,13 @@ const Negocios = () => {
     }, []);
 
     return (
-        <div className="flex flex-col items-center">
-            <div className="flex flex-row mt-8">
-                <div className="mx-4">
-                    <CrearNegocio setNegocios={setNegocios} />
-                </div>
+        <div className="flex flex-row justify-between p-8">
+            <div className="flex flex-col items-start space-y-4">
                 <div className="mx-4">
                     <Categoria />
+                </div>
+                <div className="mx-4">
+                    <CrearNegocio setNegocios={setNegocios} />
                 </div>
             </div>
             <div className="flex flex-row mt-8">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 const CrearNegocio = ({ setNegocios }) => {
 
 
@@ -16,15 +17,16 @@ const CrearNegocio = ({ setNegocios }) => {
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const res = await axios.get('http://localhost:8000/api/categorias');
-        setTodasLasCategorias(res.data);
+        const response = await axios.get('http://localhost:8000/api/categorias');
+        setTodasLasCategorias(response.data);
+        console.log(response.data)
       } catch (error) {
         console.log(error);
       }
     };
-
     fetchCategorias();
-  }, []);
+}, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,6 +44,7 @@ const CrearNegocio = ({ setNegocios }) => {
           return categoria ? categoria.id : null;
         }),
         UsuarioID: 1,
+        categoria  : [],
         Comentarios: []
       };
 
@@ -61,11 +64,12 @@ const CrearNegocio = ({ setNegocios }) => {
       console.log(error);
     }
   };
+ 
 
   return (
-    <div className="bg-red-500 rounded-lg shadow-lg p-6  w-64 h-300 overflow-auto">
-      <h1 className="text-2xl font-bold mb-4 text-center">Crear Negocio</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="bg-red-500 rounded-lg shadow-lg p-6 overflow-auto max-w-200 max-h-200">
+      <h1 className="text-2xl font-bold mb-4 text-center text-zinc-50">Crear Negocio</h1>
+      <form onSubmit={handleSubmit} className='flex flex-row flex-wrap justify-between' >
         <div className="flex flex-col mb-4">
           <input
             type="text"
@@ -124,6 +128,12 @@ const CrearNegocio = ({ setNegocios }) => {
             value={urlImagen}
             onChange={(e) => setUrlImagen(e.target.value)}
           />
+        </div>
+
+        <div className="flex flex-col mb-4">
+        <p>{todasLasCategorias.length > 0 ? 'Categorías cargadas' : 'Cargando categorías...'}</p>
+       
+
         </div>
 
         <div className="flex justify-center">

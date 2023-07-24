@@ -15,11 +15,6 @@ const ConsultarCategoria = ({ categorias, fetchCategorias, setCategorias }) => {
     }
   };
 
-  
-  
-
-
-
   return (
     <div className="p-5">
       

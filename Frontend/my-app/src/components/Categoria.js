@@ -24,7 +24,7 @@ const Categoria = () => {
   };
 
   return (
-    <div className="bg-red-500 rounded-lg shadow-lg p-1  w-64 h-300">
+    <div className="bg-red-500 rounded-lg shadow-lg flex flex-row justify-between">
       <CrearCategoria onNuevaCategoria={handleNuevaCategoria} />
       
       <ConsultarCategoria categorias={categorias} setCategorias={setCategorias} />
