@@ -18,6 +18,12 @@ func main() {
 		log.Fatalf("Could not connect to DB: %v", err)
 	}
 
+	// Ejecuta las migraciones aquí
+	err = db.DBConn.AutoMigrate(&models.Usuario{}, &models.Categoria{}, &models.Negocio{}, &models.Comentario{})
+	if err != nil {
+		log.Fatalf("Failed to migrate tables: %v", err)
+	}
+
 	r := router.Router()
 
 	r.Walk(func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
@@ -29,11 +35,6 @@ func main() {
 	})
 
 	fmt.Println("Serving on port 8000")
-
-	err = db.DBConn.AutoMigrate(&models.Usuario{}, &models.Categoria{}, &models.Negocio{}, &models.Comentario{})
-	if err != nil {
-		log.Fatalf("Failed to migrate tables: %v", err)
-	}
 
 	// Create a cors wrapper (middleware)
 	corsWrapper := cors.New(cors.Options{

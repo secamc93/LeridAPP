@@ -13,8 +13,6 @@ type Negocio struct {
 	Descripcion string
 	UrlImagen   string
 	UsuarioID   uint
-	Categorias  string
-	Comentarios string
 }
 
 func GetAllNegocios(db *gorm.DB, negocios *[]Negocio) (err error) {

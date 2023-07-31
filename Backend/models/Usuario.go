@@ -2,17 +2,13 @@ package models
 
 import (
 	"gorm.io/gorm"
-	"time"
 )
 
 type Usuario struct {
 	gorm.Model
-	Nombre        string
-	Email         string `gorm:"type:varchar(100);unique_index"`
-	Contrasena    string
-	FechaRegistro time.Time
-	Negocios      []Negocio
-	Comentarios   []Comentario
+	Nombre     string
+	Email      string `gorm:"type:varchar(100);unique_index"`
+	Contrasena string
 }
 
 func GetAllUsuarios(db *gorm.DB, usuarios *[]Usuario) (err error) {

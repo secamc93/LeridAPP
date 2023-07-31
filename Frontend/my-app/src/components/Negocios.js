@@ -3,6 +3,8 @@ import axios from 'axios';
 import ConsultarNegocios from './ConsultarNegocio';
 import CrearNegocio from './CrearNegocio';
 import Categoria from './Categoria';
+import AsignarCategorias from './AsignarCategorias';
+
 
 const Negocios = () => {
     const [negocios, setNegocios] = useState([]);
@@ -33,6 +35,7 @@ const Negocios = () => {
             <div className="flex flex-row mt-8">
                 <div className="mx-4">
                     <ConsultarNegocios negocios={negocios}  setNegocios={setNegocios}/>
+                    <AsignarCategorias negocios={negocios}  setNegocios={setNegocios} />
                 </div>
             </div>
         </div>

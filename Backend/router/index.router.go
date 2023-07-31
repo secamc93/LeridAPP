@@ -37,5 +37,12 @@ func Router() *mux.Router {
 	r.HandleFunc("/api/comentarios/{id}", controller.ActualizarComentario).Methods("PUT")
 	r.HandleFunc("/api/comentarios/{id}", controller.EliminarComentario).Methods("DELETE")
 
+	// Rutas para CategoriaNegocio
+	r.HandleFunc("/api/categoriasnegocios", controller.GetCategoriasNegocios).Methods("GET")
+	r.HandleFunc("/api/categoriasnegocios/{id}", controller.GetCategoriaNegocio).Methods("GET")
+	r.HandleFunc("/api/categoriasnegocios", controller.CreateCategoriaNegocio).Methods("POST")
+	r.HandleFunc("/api/categoriasnegocios", controller.UpdateCategoriaNegocio).Methods("PUT")
+	r.HandleFunc("/api/categoriasnegocios/{id}", controller.DeleteCategoriaNegocio).Methods("DELETE")
+
 	return r
 }

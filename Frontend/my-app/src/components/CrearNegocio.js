@@ -64,6 +64,14 @@ const CrearNegocio = ({ setNegocios }) => {
       console.log(error);
     }
   };
+
+  const handleCategoryChange = (e) => {
+    const selectedCategories = Array.from(e.target.selectedOptions, option => option.value);
+    setNegociosCategorias(selectedCategories);
+  };
+
+  
+  
  
 
   return (
@@ -130,11 +138,7 @@ const CrearNegocio = ({ setNegocios }) => {
           />
         </div>
 
-        <div className="flex flex-col mb-4">
-        <p>{todasLasCategorias.length > 0 ? 'Categorías cargadas' : 'Cargando categorías...'}</p>
-       
-
-        </div>
+        
 
         <div className="flex justify-center">
           <button type="submit" className="px-4 py-2 rounded-lg bg-white text-red-500">
